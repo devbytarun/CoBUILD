@@ -74,41 +74,66 @@ export const Auth: React.FC = () => {
         {/* Middle & Bottom: Left-aligned copy and steps (No logo) */}
         <div className="relative z-10 flex flex-col items-start text-left mt-auto mb-16 max-w-sm">
           
-          <h2 className="text-3xl font-extrabold tracking-tight mb-2">Create Account</h2>
+          <h2 className="text-3xl font-extrabold tracking-tight mb-2">
+            {isSignUp ? 'Create Account' : 'Welcome Back'}
+          </h2>
           <p className="text-zinc-400 text-sm mb-9 leading-relaxed">
-            Complete these easy steps to register your student profile and find teams.
+            {isSignUp 
+              ? 'Complete these easy steps to register your student profile and find teams.' 
+              : 'Sign in to match with builders, showcase your projects, and collaborate across universities.'}
           </p>
 
-          {/* Steps Container */}
-          <div className="space-y-3.5 w-full text-left">
-            {/* Step 1 */}
-            <div className={`flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 ${
-              isSignUp ? 'bg-white text-zinc-950 shadow-lg' : 'bg-zinc-900/60 border border-zinc-800/80 text-zinc-400'
-            }`}>
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                isSignUp ? 'bg-zinc-950 text-white' : 'bg-zinc-800 text-zinc-400'
-              }`}>
-                1
+          {isSignUp ? (
+            /* Steps Container */
+            <div className="space-y-3.5 w-full text-left">
+              {/* Step 1 */}
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white text-zinc-950 shadow-lg">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-zinc-950 text-white">
+                  1
+                </div>
+                <span className="text-sm font-semibold">Sign up your account</span>
               </div>
-              <span className="text-sm font-semibold">Sign up your account</span>
-            </div>
 
-            {/* Step 2 */}
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/40 border border-zinc-900/80 text-zinc-500">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-zinc-900 text-zinc-600 border border-zinc-800/40">
-                2
+              {/* Step 2 */}
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/40 border border-zinc-900/80 text-zinc-500">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-zinc-900 text-zinc-600 border border-zinc-800/40">
+                  2
+                </div>
+                <span className="text-sm font-semibold">Verify university email</span>
               </div>
-              <span className="text-sm font-semibold">Verify university email</span>
-            </div>
 
-            {/* Step 3 */}
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/40 border border-zinc-900/80 text-zinc-500">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-zinc-900 text-zinc-600 border border-zinc-800/40">
-                3
+              {/* Step 3 */}
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/40 border border-zinc-900/80 text-zinc-500">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-zinc-900 text-zinc-600 border border-zinc-800/40">
+                  3
+                </div>
+                <span className="text-sm font-semibold">Set up your builder profile</span>
               </div>
-              <span className="text-sm font-semibold">Set up your builder profile</span>
             </div>
-          </div>
+          ) : (
+            /* Feature List for Login */
+            <div className="space-y-4 w-full">
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-zinc-900/30 border border-zinc-900/80 text-zinc-400">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center bg-brand-green/10 text-brand-green text-xs font-bold flex-shrink-0 mt-0.5">
+                  ✓
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-1">Match Instantly</h4>
+                  <p className="text-xs text-zinc-500 leading-normal">Find and team up with complementary skill sets across university campus networks.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-zinc-900/30 border border-zinc-900/80 text-zinc-400">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center bg-brand-green/10 text-brand-green text-xs font-bold flex-shrink-0 mt-0.5">
+                  ✓
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-1">Showcase Projects</h4>
+                  <p className="text-xs text-zinc-500 leading-normal">Feature your hacks, designs, and systems on a unified student builder portfolio.</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Bottom */}
