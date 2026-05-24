@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, Cambria, serif;
+  --color-brand-green: #a3e635;
+  --color-brand-green-dark: #65a30d;
+  --color-brand-bg: #09090b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body, #root {
+  min-height: 100%;
+}
+
+html, body {
+  background-color: #f3f5ee;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background-color: #09090b;
+  }
+}
+
+html.dark, html.dark body {
+  background-color: #09090b;
+}
+
+/* Custom CSS for glowing backgrounds and grid */
+.grid-overlay {
+  background-image: 
+    linear-gradient(rgba(163, 230, 53, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(163, 230, 53, 0.1) 1px, transparent 1px);
+  background-size: 200px 200px;
+  background-position: center top;
+}
+
+.dark .grid-overlay {
+  background-image: 
+    linear-gradient(rgba(163, 230, 53, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(163, 230, 53, 0.035) 1px, transparent 1px);
+  background-size: 200px 200px;
+}
+
+/* Glow effects */
+.glow-left {
+  background: radial-gradient(circle 500px at 0% 50%, rgba(163, 230, 53, 0.12), transparent 85%);
+}
+
+.dark .glow-left {
+  background: radial-gradient(circle 500px at 0% 50%, rgba(163, 230, 53, 0.08), transparent 85%);
+}
+
+.glow-right {
+  background: radial-gradient(circle 500px at 100% 30%, rgba(163, 230, 53, 0.09), transparent 85%);
+}
+
+.dark .glow-right {
+  background: radial-gradient(circle 500px at 100% 30%, rgba(163, 230, 53, 0.06), transparent 85%);
+}
+
+/* Blinking animation for cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1.2s infinite;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Fade in animation for carousels */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.99) translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
