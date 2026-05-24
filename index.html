@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/png" href="/favicone.png" />
+
+    <meta name="description" content="CoBUILD helps students find serious teammates, join hackathons, and build winning ideas together. Smart matching for serious builders." />
+    <meta name="theme-color" content="#a3e635" />
+    <meta property="og:title" content="CoBUILD — Find Your Builders" />
+    <meta property="og:description" content="Find serious teammates, join hackathons, and build winning projects together." />
+    <meta property="og:type" content="website" />
+    <title>CoBUILD — Find Your Builders</title>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('cobuild-theme');
+          var isDark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var root = document.documentElement;
+          root.classList.remove('light', 'dark');
+          root.classList.add(isDark ? 'dark' : 'light');
+        } catch (_) {}
+      })();
+    </script>
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
