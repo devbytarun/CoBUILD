@@ -37,7 +37,7 @@ html.dark, html.dark body {
   background-color: #09090b;
 }
 
-/* Custom CSS for glowing backgrounds and grid */
+
 .grid-overlay {
   background-image: 
     linear-gradient(rgba(163, 230, 53, 0.1) 1px, transparent 1px),
@@ -53,7 +53,7 @@ html.dark, html.dark body {
   background-size: 200px 200px;
 }
 
-/* Glow effects */
+
 .glow-left {
   background: radial-gradient(circle 500px at 0% 50%, rgba(163, 230, 53, 0.12), transparent 85%);
 }
@@ -70,7 +70,7 @@ html.dark, html.dark body {
   background: radial-gradient(circle 500px at 100% 30%, rgba(163, 230, 53, 0.06), transparent 85%);
 }
 
-/* Blinking animation for cursor */
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -80,18 +80,18 @@ html.dark, html.dark body {
   animation: blink 1.2s infinite;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
+
 .scrollbar-none {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
 }
 
-/* Fade in animation for carousels */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -106,3 +106,4 @@ html.dark, html.dark body {
 .animate-fade-in {
   animation: fadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+

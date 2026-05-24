@@ -11,7 +11,7 @@ export const Navbar: React.FC = () => {
     <nav className="w-full bg-transparent border-none transition-all duration-300">
       <div className="w-full px-6 md:px-12 h-20 grid grid-cols-3 items-center">
         
-        {/* Left: Logo */}
+        
         <div className="flex justify-start">
           <a href="#" className="flex items-center gap-1.5 text-xl font-bold tracking-tight select-none">
             <span className="text-brand-green font-sans font-extrabold">&#123;&gt;_&#125;</span>
@@ -21,7 +21,7 @@ export const Navbar: React.FC = () => {
           </a>
         </div>
 
-        {/* Center: Navigation Links */}
+        
         <div className="hidden md:flex justify-center items-center gap-8">
           <a href="#about" className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors duration-200 text-sm font-medium">
             About
@@ -37,9 +37,9 @@ export const Navbar: React.FC = () => {
           </a>
         </div>
 
-        {/* Right: Actions */}
+        
         <div className="hidden md:flex justify-end items-center gap-6">
-          {/* Theme Toggle */}
+          
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900/40 transition-all duration-200 cursor-pointer"
@@ -62,7 +62,7 @@ export const Navbar: React.FC = () => {
           </a>
         </div>
 
-        {/* Mobile Menu & Theme Button Wrapper (Right) */}
+        
         <div className="flex justify-end items-center gap-4 md:hidden col-start-3">
           <button
             onClick={toggleTheme}
@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      
       {isOpen && (
         <div className="md:hidden bg-white/95 dark:bg-zinc-950/95 border-b border-zinc-200 dark:border-zinc-900 py-6 px-6 flex flex-col gap-5 animate-in fade-in slide-in-from-top duration-300 backdrop-blur-md">
           <a 
@@ -132,3 +132,4 @@ export const Navbar: React.FC = () => {
 }
 
 export default Navbar
+

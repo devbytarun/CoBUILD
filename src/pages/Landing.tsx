@@ -16,11 +16,7 @@ export const Landing: React.FC = () => {
   const hackathonSlidesCount = 3
   const roleSlidesCount = 3
   const carouselIntervalMs = 4300
-
-  // React state for Hero word rotator
   const [wordIndex, setWordIndex] = React.useState(0)
-
-  // Refs for GSAP animations
   const wordsContainerRef = useRef<HTMLSpanElement>(null)
   
   const buildersRef = useRef<HTMLSpanElement>(null)
@@ -46,16 +42,12 @@ export const Landing: React.FC = () => {
   const card3Ref = useRef<HTMLDivElement>(null)
   const card4Ref = useRef<HTMLDivElement>(null)
   const card5Ref = useRef<HTMLDivElement>(null)
-
-  // Interval to update the active word
   useEffect(() => {
     const textInterval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % words.length)
     }, 2800)
     return () => clearInterval(textInterval)
   }, [])
-
-  // Auto-loop both carousels together at the same pace
   useEffect(() => {
     const interval = setInterval(() => {
       setHackathonIndex((prev) => (prev + 1) % hackathonSlidesCount)
@@ -64,13 +56,9 @@ export const Landing: React.FC = () => {
 
     return () => clearInterval(interval)
   }, [hackathonSlidesCount, roleSlidesCount, carouselIntervalMs])
-
-  // Animate word scrolling on index update
   useEffect(() => {
     const wordEl = wordsContainerRef.current
     if (!wordEl || !wordEl.parentElement) return
-
-    // Dynamic height of a single text line (parent is inline-block wrap)
     const lineHeight = wordEl.parentElement.clientHeight
     const targetY = -wordIndex * lineHeight
 
@@ -101,7 +89,6 @@ export const Landing: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // --- 1. Page load / reload intro animation ---
       const heroSection = heroSectionRef.current
       if (heroSection) {
         const heroItems = heroSection.querySelectorAll('[data-hero-reveal]')
@@ -135,10 +122,6 @@ export const Landing: React.FC = () => {
           )
         }
       }
-
-      // (Main ScrollTriggers and Counters run once on mount)
-
-      // --- 2. Stats Counters with Blur ---
       const stats = [
         { ref: buildersRef, target: 4230, formatter: (v: number) => Math.floor(v).toLocaleString() },
         { ref: teamsRef, target: 1247, formatter: (v: number) => Math.floor(v).toLocaleString() },
@@ -178,8 +161,6 @@ export const Landing: React.FC = () => {
           }
         })
       })
-
-      // --- 3. Features Bento Grid Cards Entrance ---
       const grid = featuresGridRef.current
       if (grid) {
         gsap.fromTo(
@@ -204,8 +185,6 @@ export const Landing: React.FC = () => {
           }
         )
       }
-
-      // --- 3b. Section reveal: fade + up on scroll ---
       gsap.fromTo(
         ['#features', '#how-it-works', '#pricing'],
         { opacity: 0, y: 36 },
@@ -222,8 +201,6 @@ export const Landing: React.FC = () => {
           },
         }
       )
-
-      // --- 3c. Listings cards reveal ---
       const listingsGrid = listingsGridRef.current
       if (listingsGrid) {
         gsap.fromTo(
@@ -248,8 +225,6 @@ export const Landing: React.FC = () => {
           }
         )
       }
-
-      // --- 3d. Pricing cards reveal ---
       const pricingCardsGrid = pricingCardsGridRef.current
       if (pricingCardsGrid) {
         gsap.fromTo(
@@ -274,16 +249,12 @@ export const Landing: React.FC = () => {
           }
         )
       }
-
-      // --- 4. Desktop Wavy Timeline Animation ---
       const path = timelinePathRef.current
       const dots = [dot1Ref.current, dot2Ref.current, dot3Ref.current, dot4Ref.current, dot5Ref.current]
       const cards = [card1Ref.current, card2Ref.current, card3Ref.current, card4Ref.current, card5Ref.current]
 
       if (path) {
         const length = path.getTotalLength()
-        
-        // Initial setup
         gsap.set(path, {
           strokeDasharray: length,
           strokeDashoffset: length,
@@ -294,8 +265,6 @@ export const Landing: React.FC = () => {
         cards.forEach(card => {
           if (card) gsap.set(card, { y: 20, opacity: 0 })
         })
-
-        // Build Timeline with ScrollTrigger
         const tl = gsap.timeline({
           delay: 0.4, // Add a delay to let smooth scroll settle
           scrollTrigger: {
@@ -304,8 +273,6 @@ export const Landing: React.FC = () => {
             toggleActions: 'play none none none', // play once
           }
         })
-
-        // Step-by-step path drawing and dot popping
         tl.to(dots[0], { scale: 1, opacity: 1, duration: 0.2 }, 0)
           .to(cards[0], { y: 0, opacity: 1, duration: 0.3 }, 0)
           
@@ -325,8 +292,6 @@ export const Landing: React.FC = () => {
           .to(dots[4], { scale: 1, opacity: 1, duration: 0.2 }, 2.0)
           .to(cards[4], { y: 0, opacity: 1, duration: 0.3 }, 2.0)
       }
-
-      // --- 5. Mobile Vertical Timeline Line ---
       const mobLine = mobileTimelineLineRef.current
       if (mobLine) {
         gsap.fromTo(
@@ -353,36 +318,36 @@ export const Landing: React.FC = () => {
   return (
     <div className="relative min-h-screen bg-zinc-50 dark:bg-brand-bg text-zinc-900 dark:text-white transition-colors duration-300 overflow-hidden flex flex-col items-center">
       
-      {/* Background Grid and Glowing Gradients */}
+      
       <div className="absolute inset-0 grid-overlay pointer-events-none z-0"></div>
       <div className="absolute inset-0 glow-left pointer-events-none z-0"></div>
       <div className="absolute inset-0 glow-right pointer-events-none z-0"></div>
 
-      {/* Hero Section */}
+      
       <div
         id="about"
         ref={heroSectionRef}
         className="w-full max-w-7xl mx-auto px-6 pt-16 md:pt-24 pb-12 flex flex-col items-center text-center z-10"
       >
         
-        {/* Badge Pill */}
+        
         <div data-hero-reveal className="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-800/80 bg-white/60 dark:bg-zinc-950/60 backdrop-blur-sm rounded-full px-4 py-1.5 text-xs font-semibold text-zinc-500 dark:text-zinc-400 tracking-wider shadow-sm transition-all duration-300 hover:border-zinc-300 dark:hover:border-zinc-700">
           <span className="w-2 h-2 rounded-full bg-brand-green shadow-[0_0_8px_#a3e635] animate-pulse"></span>
           JOIN BETA V1
         </div>
 
-        {/* Hero Heading */}
+        
         <h1 data-hero-reveal className="text-4xl md:text-6xl font-extrabold tracking-tight text-zinc-950 dark:text-white mt-8 mb-6 max-w-4xl leading-[1.08] select-none text-center">
           Find your <br className="hidden md:inline" />
           <span className="block h-1 md:h-1.5"></span>
           <span className="text-brand-green-dark dark:text-brand-green inline-flex items-center justify-center font-serif italic font-normal tracking-wide">
             <span className="relative inline-block overflow-hidden h-[1.24em] min-w-[11ch] align-bottom select-none text-center leading-[1.2]">
-              {/* Invisible dummy span to set dynamic container width to match current word */}
+              
               <span className="invisible inline-block whitespace-nowrap text-center font-serif italic font-normal tracking-wide">
                 {words[wordIndex]}
               </span>
               
-              {/* Absolute scrolling container */}
+              
               <span ref={wordsContainerRef} className="absolute left-0 right-0 top-0 flex flex-col whitespace-nowrap text-center leading-[1.2] font-serif italic font-normal tracking-wide">
                 {words.map((word, i) => (
                   <span key={i} className="text-center block w-full leading-[1.2]">{word}</span>
@@ -392,23 +357,23 @@ export const Landing: React.FC = () => {
           </span>
         </h1>
 
-        {/* Hero Description */}
+        
         <p data-hero-reveal className="text-zinc-600 dark:text-zinc-400 text-sm md:text-base max-w-xl mx-auto leading-relaxed mb-8">
           CoBuild helps students find serious teammates,
           <br className="hidden sm:inline" /> join hackathons, and build winning ideas together.
         </p>
 
-        {/* CTA Button */}
+        
         <Button data-hero-cta variant="primary" size="lg" className="group rounded-xl font-semibold shadow-lg transition-all duration-100">
           Get Started 
           <ArrowRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform duration-200" />
         </Button>
 
-        {/* Stats Panel (Compact Capsule size) */}
+        
         <div data-hero-reveal className="w-full max-w-2xl mx-auto mt-16">
           <div className="border border-zinc-200 dark:border-zinc-800/60 bg-white/40 dark:bg-zinc-950/30 backdrop-blur-md rounded-2xl p-5 md:py-6 grid grid-cols-3 gap-0 divide-x divide-zinc-200 dark:divide-zinc-800/60">
             
-            {/* Stat 1 */}
+            
             <div className="flex flex-col items-center justify-center px-2">
               <div className="text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-950 dark:text-white flex items-center justify-center mb-1">
                 <span ref={buildersRef}></span><span className="text-brand-green-dark dark:text-brand-green font-medium pl-0.5">+</span>
@@ -418,7 +383,7 @@ export const Landing: React.FC = () => {
               </div>
             </div>
 
-            {/* Stat 2 */}
+            
             <div className="flex flex-col items-center justify-center px-2">
               <div className="text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-950 dark:text-white flex items-center justify-center mb-1">
                 <span ref={teamsRef}></span><span className="text-brand-green-dark dark:text-brand-green font-medium pl-0.5">+</span>
@@ -428,7 +393,7 @@ export const Landing: React.FC = () => {
               </div>
             </div>
 
-            {/* Stat 3 */}
+            
             <div className="flex flex-col items-center justify-center px-2">
               <div className="text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-950 dark:text-white flex items-center justify-center mb-1">
                 <span ref={hackathonsRef}></span><span className="text-brand-green-dark dark:text-brand-green font-medium pl-0.5">+</span>
@@ -443,7 +408,7 @@ export const Landing: React.FC = () => {
 
       </div>
 
-      {/* Trusted Partners Section (Full Width, Touching Edges) */}
+      
       <div className="w-full border-y border-zinc-200/60 dark:border-zinc-900 bg-zinc-100/30 dark:bg-zinc-950/10 py-8 md:py-10 mt-8 mb-8 md:mb-12 select-none flex flex-col items-center justify-center z-10">
         <p className="text-[11px] md:text-xs font-bold tracking-[0.3em] text-zinc-400 dark:text-zinc-500 uppercase mb-8">
           Trusted by students at
@@ -465,13 +430,13 @@ export const Landing: React.FC = () => {
         </div>
       </div>
 
-      {/* Features Bento Grid Section */}
+      
       <section id="features" className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-6 md:pt-8 pb-16 md:pb-24 z-10 scroll-mt-2">
         
-        {/* Bento Grid layout matching reference 3x3 layout */}
+        
         <div ref={featuresGridRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           
-          {/* Card 0: Section Title Block (Col 1, Row 1) */}
+          
           <div className="flex flex-col justify-center p-6 text-left">
             <span className="text-brand-green-dark dark:text-brand-green text-xs font-bold tracking-[0.2em] uppercase">Our Platform</span>
             <h2 className="text-3xl md:text-4xl font-normal font-serif text-zinc-950 dark:text-white mt-3 leading-tight">
@@ -482,7 +447,7 @@ export const Landing: React.FC = () => {
             </p>
           </div>
 
-          {/* Card 1: Find Teammates (Col 2, Row 1) */}
+          
           <div className="min-h-[240px] bg-white dark:bg-zinc-900/70 backdrop-blur-md hover:bg-zinc-50 dark:hover:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-700/50 shadow-sm rounded-3xl p-8 transition-all duration-300 hover:shadow-lg hover:border-zinc-300 dark:hover:border-zinc-600/60 flex flex-col justify-between group">
             <div className="flex justify-between items-start">
               <h3 className="text-lg font-bold text-zinc-950 dark:text-white group-hover:text-brand-green-dark dark:group-hover:text-brand-green transition-colors">
@@ -496,7 +461,7 @@ export const Landing: React.FC = () => {
             </p>
           </div>
 
-          {/* Card 2: Smart Matching (Col 3, Row 1) */}
+          
           <div className="min-h-[240px] bg-white dark:bg-zinc-900/70 backdrop-blur-md hover:bg-zinc-50 dark:hover:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-700/50 shadow-sm rounded-3xl p-8 transition-all duration-300 hover:shadow-lg hover:border-zinc-300 dark:hover:border-zinc-600/60 flex flex-col justify-between group">
             <div className="flex justify-between items-start">
               <h3 className="text-lg font-bold text-zinc-950 dark:text-white group-hover:text-brand-green-dark dark:group-hover:text-brand-green transition-colors">
@@ -510,7 +475,7 @@ export const Landing: React.FC = () => {
             </p>
           </div>
 
-          {/* Card 3: Team Building (Col 1, Row 2) */}
+          
           <div className="min-h-[240px] bg-white dark:bg-zinc-900/70 backdrop-blur-md hover:bg-zinc-50 dark:hover:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-700/50 shadow-sm rounded-3xl p-8 transition-all duration-300 hover:shadow-lg hover:border-zinc-300 dark:hover:border-zinc-600/60 flex flex-col justify-between group">
             <div className="flex justify-between items-start">
               <h3 className="text-lg font-bold text-zinc-950 dark:text-white group-hover:text-brand-green-dark dark:group-hover:text-brand-green transition-colors">
@@ -524,7 +489,7 @@ export const Landing: React.FC = () => {
             </p>
           </div>
 
-          {/* Card 4: Join Hackathons (Col 2, Row 2) */}
+          
           <div className="min-h-[240px] bg-white dark:bg-zinc-900/70 backdrop-blur-md hover:bg-zinc-50 dark:hover:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-700/50 shadow-sm rounded-3xl p-8 transition-all duration-300 hover:shadow-lg hover:border-zinc-300 dark:hover:border-zinc-600/60 flex flex-col justify-between group">
             <div className="flex justify-between items-start">
               <h3 className="text-lg font-bold text-zinc-950 dark:text-white group-hover:text-brand-green-dark dark:group-hover:text-brand-green transition-colors">
@@ -538,7 +503,7 @@ export const Landing: React.FC = () => {
             </p>
           </div>
 
-          {/* Card 5: Compatibility Score (Col 3, Row 2) */}
+          
           <div className="min-h-[240px] bg-white dark:bg-zinc-900/70 backdrop-blur-md hover:bg-zinc-50 dark:hover:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-700/50 shadow-sm rounded-3xl p-8 transition-all duration-300 hover:shadow-lg hover:border-zinc-600/60 flex flex-col justify-between group">
             <div className="flex justify-between items-start">
               <h3 className="text-lg font-bold text-zinc-950 dark:text-white group-hover:text-brand-green-dark dark:group-hover:text-brand-green transition-colors">
@@ -552,10 +517,10 @@ export const Landing: React.FC = () => {
             </p>
           </div>
 
-          {/* Card 6: Explore Subscription (Row 3, Spans all columns - Solid green banner style) */}
+          
           <div id="subscription-banner" className="md:col-span-3 bg-[#a3e635] text-black rounded-3xl p-8 transition-all duration-300 hover:shadow-[0_0_30px_rgba(163,230,53,0.25)] flex flex-col md:flex-row justify-between items-center group cursor-pointer relative overflow-hidden select-none mt-4">
             
-            {/* Dollar sign pattern (Full outlined scattered dollars in bg) */}
+            
             <div 
               className="absolute inset-0 select-none pointer-events-none overflow-hidden z-0 transition-transform duration-500 ease-out scale-100 group-hover:scale-125"
               style={{ transformOrigin: 'center center' }}
@@ -607,7 +572,7 @@ export const Landing: React.FC = () => {
               </div>
             </div>
 
-            {/* CTA Arrow Link */}
+            
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-black mt-6 md:mt-0 z-10 shrink-0 border-b-2 border-black pb-0.5">
               <span>Explore Subscription</span>
               <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
@@ -619,11 +584,11 @@ export const Landing: React.FC = () => {
       </section>
 
 
-      {/* Process Section (Wavy Path & Left Header - Reference Image 5) */}
+      
       <section id="how-it-works" className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-2 pb-0 z-10 scroll-mt-0">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Column: Heading and CTA */}
+          
           <div className="lg:col-span-4 flex flex-col items-start text-left mt-8">
             <span className="text-brand-green-dark dark:text-brand-green text-xs font-bold tracking-[0.2em] uppercase">Workflow</span>
             <h2 className="text-3xl md:text-4xl font-normal font-serif text-zinc-950 dark:text-white mt-3 leading-tight">
@@ -637,13 +602,13 @@ export const Landing: React.FC = () => {
             </Button>
           </div>
 
-          {/* Right Column: Wavy Timeline (Responsive) */}
+          
           <div className="lg:col-span-8 w-full relative min-h-[320px] overflow-x-auto md:overflow-x-visible">
             
-            {/* Desktop Horizontal Wavy Timeline */}
+            
             <div className="hidden md:block w-[1000px] lg:w-full h-[300px] relative">
               
-              {/* Curved SVG Wave Line (Shifted up by 20px) */}
+              
               <svg className="absolute w-full h-[320px] top-0 left-0" viewBox="0 0 1000 320" fill="none" preserveAspectRatio="none">
                 <path 
                   d="M 50 280 C 90 270, 120 240, 150 240 C 220 240, 280 160, 350 160 C 420 160, 480 80, 550 80 C 620 80, 680 160, 750 160 C 820 160, 880 120, 920 120" 
@@ -662,7 +627,7 @@ export const Landing: React.FC = () => {
                 />
               </svg>
 
-              {/* Node 1: Create Profile */}
+              
               <div ref={dot1Ref} className="absolute left-[15%] top-[240px] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
                 <div className="w-5 h-5 rounded-full border-4 border-brand-green bg-white dark:bg-zinc-950 shadow-sm flex items-center justify-center transition-transform duration-300 hover:scale-125">
                   <div className="w-1.5 h-1.5 rounded-full bg-brand-green"></div>
@@ -681,7 +646,7 @@ export const Landing: React.FC = () => {
                 </p>
               </div>
 
-              {/* Node 2: Match */}
+              
               <div ref={dot2Ref} className="absolute left-[35%] top-[160px] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
                 <div className="w-5 h-5 rounded-full border-4 border-brand-green bg-white dark:bg-zinc-950 shadow-sm flex items-center justify-center transition-transform duration-300 hover:scale-125">
                   <div className="w-1.5 h-1.5 rounded-full bg-brand-green"></div>
@@ -700,7 +665,7 @@ export const Landing: React.FC = () => {
                 </p>
               </div>
 
-              {/* Node 3: Form Team */}
+              
               <div ref={dot3Ref} className="absolute left-[55%] top-[80px] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
                 <div className="w-5 h-5 rounded-full border-4 border-brand-green bg-white dark:bg-zinc-950 shadow-sm flex items-center justify-center transition-transform duration-300 hover:scale-125">
                   <div className="w-1.5 h-1.5 rounded-full bg-brand-green"></div>
@@ -719,7 +684,7 @@ export const Landing: React.FC = () => {
                 </p>
               </div>
 
-              {/* Node 4: Join Hackathon */}
+              
               <div ref={dot4Ref} className="absolute left-[75%] top-[160px] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
                 <div className="w-5 h-5 rounded-full border-4 border-brand-green bg-white dark:bg-zinc-950 shadow-sm flex items-center justify-center transition-transform duration-300 hover:scale-125">
                   <div className="w-1.5 h-1.5 rounded-full bg-brand-green"></div>
@@ -738,7 +703,7 @@ export const Landing: React.FC = () => {
                 </p>
               </div>
 
-              {/* Node 5: Build Together */}
+              
               <div ref={dot5Ref} className="absolute left-[92%] top-[120px] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto">
                 <div className="w-5 h-5 rounded-full border-4 border-brand-green bg-white dark:bg-zinc-950 shadow-sm flex items-center justify-center transition-transform duration-300 hover:scale-125">
                   <div className="w-1.5 h-1.5 rounded-full bg-brand-green"></div>
@@ -759,13 +724,13 @@ export const Landing: React.FC = () => {
 
             </div>
 
-            {/* Mobile Vertical Timeline */}
+            
             <div className="block md:hidden pl-8 relative text-left">
               <div className="absolute left-4 top-2 bottom-2 w-0.5 bg-zinc-200 dark:bg-zinc-800"></div>
               <div ref={mobileTimelineLineRef} className="absolute left-4 top-2 bottom-2 w-0.5 bg-brand-green" style={{ height: '90%' }}></div>
               
               <div className="flex flex-col gap-10">
-                {/* Mob Step 1 */}
+                
                 <div className="relative pl-6">
                   <div className="absolute -left-4 top-1.5 w-3 h-3 rounded-full border-2 border-brand-green bg-white dark:bg-zinc-950 flex items-center justify-center">
                     <div className="w-1 h-1 rounded-full bg-brand-green"></div>
@@ -782,7 +747,7 @@ export const Landing: React.FC = () => {
                   </p>
                 </div>
                 
-                {/* Mob Step 2 */}
+                
                 <div className="relative pl-6">
                   <div className="absolute -left-4 top-1.5 w-3 h-3 rounded-full border-2 border-brand-green bg-white dark:bg-zinc-950 flex items-center justify-center">
                     <div className="w-1 h-1 rounded-full bg-brand-green"></div>
@@ -799,7 +764,7 @@ export const Landing: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Mob Step 3 */}
+                
                 <div className="relative pl-6">
                   <div className="absolute -left-4 top-1.5 w-3 h-3 rounded-full border-2 border-brand-green bg-white dark:bg-zinc-950 flex items-center justify-center">
                     <div className="w-1 h-1 rounded-full bg-brand-green"></div>
@@ -816,7 +781,7 @@ export const Landing: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Mob Step 4 */}
+                
                 <div className="relative pl-6">
                   <div className="absolute -left-4 top-1.5 w-3 h-3 rounded-full border-2 border-brand-green bg-white dark:bg-zinc-950 flex items-center justify-center">
                     <div className="w-1 h-1 rounded-full bg-brand-green"></div>
@@ -833,7 +798,7 @@ export const Landing: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Mob Step 5 */}
+                
                 <div className="relative pl-6">
                   <div className="absolute -left-4 top-1.5 w-3 h-3 rounded-full border-2 border-brand-green bg-white dark:bg-zinc-950 flex items-center justify-center">
                     <div className="w-1 h-1 rounded-full bg-brand-green"></div>
@@ -857,11 +822,11 @@ export const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* Listings Dashboard Section */}
+      
       <section id="listings" className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-28 md:pt-40 pb-16 md:pb-24 z-10">
         <div ref={listingsGridRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           
-          {/* Left Column: Hackathons Listing */}
+          
           <div>
             <div className="flex items-center gap-2 mb-6">
               <div className="w-2.5 h-2.5 rounded-full bg-brand-green shadow-[0_0_8px_#a3e635]"></div>
@@ -869,10 +834,10 @@ export const Landing: React.FC = () => {
             </div>
             
             <div className="relative group/carousel w-full">
-              {/* Carousel card container with overlay right arrow and inner padding (pl-6 pr-10) */}
+              
               <div className="relative overflow-hidden border border-zinc-200/60 dark:border-zinc-900/60 bg-zinc-50/50 dark:bg-zinc-950/20 backdrop-blur-sm rounded-2xl py-6 pl-6 pr-10 hover:border-brand-green/30 dark:hover:border-brand-green/20 transition-all duration-300 min-h-[190px] flex flex-col justify-between group">
                 
-                {/* Navigation Button - absolutely overlaid on the right edge */}
+                
                 <button
                   onClick={() => setHackathonIndex((prev) => (prev + 1) % hackathonSlidesCount)}
                   className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200 opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100 z-20 cursor-pointer shadow-sm"
@@ -881,7 +846,7 @@ export const Landing: React.FC = () => {
                   <ChevronRight className="w-4 h-4" />
                 </button>
 
-                {/* Card content with animation key to trigger fadeIn on index change */}
+                
                 <div key={hackathonIndex} className="w-full animate-fade-in flex flex-col justify-between h-full flex-grow">
                   {hackathonIndex === 0 && (
                     <>
@@ -952,7 +917,7 @@ export const Landing: React.FC = () => {
 
               </div>
 
-              {/* Indicator dots at bottom center */}
+              
               <div className="flex justify-center items-center gap-1.5 mt-4">
                 {[0, 1, 2].map((idx) => (
                   <button
@@ -971,7 +936,7 @@ export const Landing: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Roles Listing */}
+          
           <div>
             <div className="flex items-center gap-2 mb-6">
               <div className="w-2.5 h-2.5 rounded-full bg-brand-green shadow-[0_0_8px_#a3e635]"></div>
@@ -979,10 +944,10 @@ export const Landing: React.FC = () => {
             </div>
             
             <div className="relative group/carousel w-full">
-              {/* Carousel card container with overlay right arrow and inner padding (pl-6 pr-10) */}
+              
               <div className="relative overflow-hidden border border-zinc-200/60 dark:border-zinc-900/60 bg-zinc-50/50 dark:bg-zinc-950/20 backdrop-blur-sm rounded-2xl py-6 pl-6 pr-10 hover:border-brand-green/30 dark:hover:border-brand-green/20 transition-all duration-300 min-h-[190px] flex flex-col justify-between group">
                 
-                {/* Navigation Button - absolutely overlaid on the right edge */}
+                
                 <button
                   onClick={() => setRoleIndex((prev) => (prev + 1) % roleSlidesCount)}
                   className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200 opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100 z-20 cursor-pointer shadow-sm"
@@ -991,7 +956,7 @@ export const Landing: React.FC = () => {
                   <ChevronRight className="w-4 h-4" />
                 </button>
 
-                {/* Card content with animation key to trigger fadeIn on index change */}
+                
                 <div key={roleIndex} className="w-full animate-fade-in flex flex-col justify-between h-full flex-grow">
                   {roleIndex === 0 && (
                     <>
@@ -1083,7 +1048,7 @@ export const Landing: React.FC = () => {
 
               </div>
 
-              {/* Indicator dots at bottom center */}
+              
               <div className="flex justify-center items-center gap-1.5 mt-4">
                 {[0, 1, 2].map((idx) => (
                   <button
@@ -1105,10 +1070,10 @@ export const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* V1/V2 Cards Section */}
+      
       <section id="pricing" className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-8 md:pt-10 pb-20 md:pb-28 z-10 scroll-mt-4">
         
-        {/* Section Header styled exactly like reference image 2 */}
+        
         <div className="mb-8 md:mb-10 text-center flex flex-col items-center select-none">
           <span className="text-zinc-400 dark:text-zinc-500 text-xs font-semibold tracking-[0.2em] uppercase mb-3">Pricing</span>
           <h2 className="text-4xl md:text-5xl font-normal font-serif text-zinc-950 dark:text-white mt-1 leading-tight">
@@ -1119,10 +1084,10 @@ export const Landing: React.FC = () => {
           </p>
         </div>
 
-        {/* Cards Grid styled like reference image 2 */}
+        
         <div ref={pricingCardsGridRef} className="grid grid-cols-1 md:grid-cols-2 gap-20 md:gap-32 max-w-6xl mx-auto items-stretch">
           
-          {/* Card 1: Starter */}
+          
           <div className="relative rounded-[28px] border-2 border-zinc-200 dark:border-zinc-900 bg-white dark:bg-[#0c0c0e]/80 backdrop-blur-md p-6 md:p-7 flex flex-col gap-5 shadow-sm hover:shadow-[0_20px_40px_rgba(163,230,53,0.08)] dark:hover:shadow-[0_20px_40px_rgba(163,230,53,0.18)] hover:-translate-y-1.5 hover:border-brand-green dark:hover:border-brand-green transition-all duration-300 group">
             
             <div className="flex flex-col">
@@ -1183,10 +1148,10 @@ export const Landing: React.FC = () => {
             
           </div>
 
-          {/* Card 2: Growth (with outer wrapper to allow sibling badge rendering on top of border & filters) */}
+          
           <div className="relative flex flex-col hover:-translate-y-1.5 transition-all duration-300 group">
             
-            {/* Card Content Container */}
+            
             <div className="w-full flex-grow relative rounded-[28px] border-2 border-brand-green/40 dark:border-brand-green/20 bg-white dark:bg-[#0c0c0e]/80 backdrop-blur-md p-6 md:p-7 flex flex-col gap-5 shadow-sm group-hover:shadow-[0_20px_40px_rgba(163,230,53,0.08)] dark:group-hover:shadow-[0_20px_40px_rgba(163,230,53,0.18)] group-hover:border-brand-green dark:group-hover:border-brand-green transition-all duration-300">
               
               <div className="flex flex-col">
@@ -1240,7 +1205,7 @@ export const Landing: React.FC = () => {
               
             </div>
 
-            {/* EARLY ACCESS corner badge as sibling to render perfectly on top of borders and blur filters */}
+            
             <div className="absolute top-[2px] right-[2px] h-[22px] z-10 bg-brand-green text-black font-black text-[8px] tracking-widest px-4 flex items-center justify-center rounded-tr-[26px] rounded-bl-md uppercase select-none shadow-[0_2px_8px_rgba(163,230,53,0.25)]">
               Early Access
             </div>
@@ -1250,7 +1215,7 @@ export const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* Newsletter Mini Section */}
+      
       <section className="w-full px-6 md:px-14 xl:px-20 pb-10 md:pb-12 z-10">
         <div className="w-full rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white/40 dark:bg-zinc-950/30 backdrop-blur-sm px-5 md:px-7 py-5 md:py-6 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 md:gap-6">
           <div>
@@ -1274,7 +1239,7 @@ export const Landing: React.FC = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      
       <footer className="w-full border-t border-zinc-300/80 dark:border-zinc-800/80 bg-white/40 dark:bg-[#050507]/40 z-10 mt-6">
         <div className="w-full px-6 md:px-14 xl:px-20 py-10 md:py-12">
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-14">
@@ -1343,3 +1308,4 @@ export const Landing: React.FC = () => {
 }
 
 export default Landing
+

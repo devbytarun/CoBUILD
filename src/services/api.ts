@@ -1,6 +1,5 @@
 import type { User, Team, Hackathon } from '@/types'
 
-// Mock Data
 const MOCK_USER: User = {
   id: 'usr_1',
   name: 'Alex Rivera',
@@ -34,8 +33,6 @@ const MOCK_HACKATHONS: Hackathon[] = [
     teamsCount: 142
   }
 ]
-
-// API Simulator
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 export const api = {
@@ -56,3 +53,4 @@ export const api = {
 }
 
 export default api
+

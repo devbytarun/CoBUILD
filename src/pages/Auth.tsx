@@ -7,13 +7,9 @@ export const Auth: React.FC = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
-  
-  // Validation states
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
-
-  // Determine if email is academic
   const isAcademicEmail = (val: string) => {
     const academicSuffixes = ['.edu', '.ac.uk', '.edu.in', '.edu.co', '.edu.sg', '.ac.in']
     const emailLower = val.toLowerCase()
@@ -60,7 +56,7 @@ export const Auth: React.FC = () => {
   return (
     <div className="w-full min-h-screen bg-zinc-950 text-white grid grid-cols-1 lg:grid-cols-2 overflow-hidden select-none font-sans">
       
-      {/* --- LEFT COLUMN: 50/50 Glowing Section --- */}
+      
       <div 
         className="hidden lg:flex relative flex-col justify-between p-16 overflow-hidden bg-zinc-950 border-r border-zinc-900"
         style={{
@@ -68,10 +64,10 @@ export const Auth: React.FC = () => {
         }}
       >
         
-        {/* Top Spacer / Flex Push */}
+        
         <div className="relative z-10"></div>
 
-        {/* Middle & Bottom: Left-aligned copy and steps (No logo) */}
+        
         <div className="relative z-10 flex flex-col items-start text-left mt-auto mb-16 max-w-sm">
           
           <h2 className="text-3xl font-extrabold tracking-tight mb-2">
@@ -84,9 +80,9 @@ export const Auth: React.FC = () => {
           </p>
 
           {isSignUp ? (
-            /* Steps Container */
+            
             <div className="space-y-3.5 w-full text-left">
-              {/* Step 1 */}
+              
               <div className="flex items-center gap-4 p-4 rounded-2xl bg-white text-zinc-950 shadow-lg">
                 <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-zinc-950 text-white">
                   1
@@ -94,7 +90,7 @@ export const Auth: React.FC = () => {
                 <span className="text-sm font-semibold">Sign up your account</span>
               </div>
 
-              {/* Step 2 */}
+              
               <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/40 border border-zinc-900/80 text-zinc-500">
                 <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-zinc-900 text-zinc-600 border border-zinc-800/40">
                   2
@@ -102,7 +98,7 @@ export const Auth: React.FC = () => {
                 <span className="text-sm font-semibold">Verify university email</span>
               </div>
 
-              {/* Step 3 */}
+              
               <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/40 border border-zinc-900/80 text-zinc-500">
                 <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-zinc-900 text-zinc-600 border border-zinc-800/40">
                   3
@@ -111,7 +107,7 @@ export const Auth: React.FC = () => {
               </div>
             </div>
           ) : (
-            /* Feature List for Login */
+            
             <div className="space-y-4 w-full">
               <div className="flex items-start gap-4 p-4 rounded-2xl bg-zinc-900/30 border border-zinc-900/80 text-zinc-400">
                 <div className="w-6 h-6 rounded-full flex items-center justify-center bg-brand-green/10 text-brand-green text-xs font-bold flex-shrink-0 mt-0.5">
@@ -136,17 +132,17 @@ export const Auth: React.FC = () => {
           )}
         </div>
 
-        {/* Bottom */}
+        
         <div></div>
 
       </div>
 
-      {/* --- RIGHT COLUMN: Pitch-Black Form Area --- */}
+      
       <div className="col-span-1 lg:col-span-1 flex flex-col justify-center items-center pl-12 pr-6 py-8 sm:p-16 relative bg-zinc-950 z-10">
         
         <div className="w-full max-w-md space-y-8">
           
-          {/* Header */}
+          
           <div className="relative">
             <a
               href="#"
@@ -163,7 +159,7 @@ export const Auth: React.FC = () => {
             </p>
           </div>
 
-          {/* Social Logins */}
+          
           <div className="grid grid-cols-2 gap-4">
             <button
               onClick={() => alert('Google auth not configured.')}
@@ -188,14 +184,14 @@ export const Auth: React.FC = () => {
             </button>
           </div>
 
-          {/* Divider */}
+          
           <div className="flex items-center">
             <div className="flex-grow h-px bg-zinc-900"></div>
             <span className="px-3 text-zinc-500 text-xs font-semibold">Or</span>
             <div className="flex-grow h-px bg-zinc-900"></div>
           </div>
 
-          {/* Form alerts */}
+          
           {errorMsg && (
             <div className="flex items-start gap-2.5 p-3.5 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-xs leading-relaxed">
               <AlertCircle className="w-4.5 h-4.5 flex-shrink-0 mt-0.5" />
@@ -210,7 +206,7 @@ export const Auth: React.FC = () => {
             </div>
           )}
 
-          {/* Auth Form */}
+          
           <form onSubmit={handleSubmit} className="space-y-6">
             {isSignUp && (
               <div className="grid grid-cols-2 gap-4">
@@ -284,7 +280,7 @@ export const Auth: React.FC = () => {
             </button>
           </form>
 
-          {/* Toggle Tab */}
+          
           <div className="text-center pt-2">
             <button
               onClick={() => {
@@ -309,3 +305,4 @@ export const Auth: React.FC = () => {
 }
 
 export default Auth
+
