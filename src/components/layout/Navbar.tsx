@@ -52,12 +52,14 @@ export const Navbar: React.FC = () => {
             )}
           </button>
 
-          <a href="#" className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors duration-200 text-sm font-medium">
+          <a href="#auth" className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors duration-200 text-sm font-medium">
             Log in
           </a>
-          <Button variant="outline" size="sm" className="group px-5 py-2">
-            Get Started <ArrowRight className="w-4 h-4 text-brand-green-dark dark:text-brand-green group-hover:translate-x-1 group-hover:text-black dark:group-hover:text-black transition-all duration-300" />
-          </Button>
+          <a href="#auth">
+            <Button variant="outline" size="sm" className="group px-5 py-2">
+              Get Started <ArrowRight className="w-4 h-4 text-brand-green-dark dark:text-brand-green group-hover:translate-x-1 group-hover:text-black dark:group-hover:text-black transition-all duration-300" />
+            </Button>
+          </a>
         </div>
 
         {/* Mobile Menu & Theme Button Wrapper (Right) */}
@@ -111,12 +113,18 @@ export const Navbar: React.FC = () => {
             Pricing
           </a>
           <div className="h-px bg-zinc-200 dark:bg-zinc-900 my-2"></div>
-          <a href="#" className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white text-base font-medium">
+          <a 
+            href="#auth" 
+            onClick={() => setIsOpen(false)}
+            className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white text-base font-medium"
+          >
             Log in
           </a>
-          <Button variant="outline" size="md" className="group w-full">
-            Get Started <ArrowRight className="w-4 h-4 text-brand-green-dark dark:text-brand-green group-hover:translate-x-1 group-hover:text-black dark:group-hover:text-black transition-all duration-300" />
-          </Button>
+          <a href="#auth" onClick={() => setIsOpen(false)} className="w-full">
+            <Button variant="outline" size="md" className="group w-full">
+              Get Started <ArrowRight className="w-4 h-4 text-brand-green-dark dark:text-brand-green group-hover:translate-x-1 group-hover:text-black dark:group-hover:text-black transition-all duration-300" />
+            </Button>
+          </a>
         </div>
       )}
     </nav>
