@@ -1,73 +1,35 @@
-# React + TypeScript + Vite
+# CoBUILD — Find Your Builders
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CoBUILD is a premium landing page platform designed to help students find serious teammates, join hackathons, and build winning ideas together. It integrates advanced matching criteria, bento grid structures, and interactive timelines.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Core**: React 19 + TypeScript + Vite 8
+- **Styling**: Tailwind CSS v4 + Custom HSL variables (supporting class-based light/dark themes)
+- **Animations**: GSAP (GreenSock Animation Platform) + GSAP ScrollTrigger
+- **Icons**: Lucide React
 
-## React Compiler
+## Interactive Features & Animations
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Hero Word Slot Rotator**: Dynamic, self-centering lottery wheel slot machine roll animation rotating through builder roles (*teammates*, *squad*, *builders*, *founders*, *designers*) with realistic motion blur and bounce ease-outs.
+- **Blurred Stats Counters**: Landing page statistic counters (Builders, Open Teams, Hackathons) that count up rapidly on viewport entrance with motion blur fading out as numbers settle.
+- **Bento Cards Scroll Entrance**: Staggered scroll-triggered fade-in and scale entrance for Features cards.
+- **Wavy Timeline SVG Drawing**: Interactive, scroll-bound SVG timeline path drawing that connects all workflow steps dynamically as the user scrolls.
+- **Get Started Button Hover**: High-contrast outline filling animation with transitioning arrow indicators.
 
-## Expanding the ESLint configuration
+## Running Locally
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2. Start the local development server:
+   ```bash
+   npm run dev
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. Build for production:
+   ```bash
+   npm run build
+   ```
