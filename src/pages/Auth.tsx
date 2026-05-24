@@ -117,21 +117,21 @@ export const Auth: React.FC = () => {
       </div>
 
       {/* --- RIGHT COLUMN: Pitch-Black Form Area --- */}
-      <div className="col-span-1 lg:col-span-1 flex flex-col justify-center items-center p-6 sm:p-16 relative bg-zinc-950 z-10">
+      <div className="col-span-1 lg:col-span-1 flex flex-col justify-center items-center pl-12 pr-6 py-8 sm:p-16 relative bg-zinc-950 z-10">
         
         <div className="w-full max-w-md space-y-8">
           
           {/* Header */}
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight flex items-center gap-3">
-              <a
-                href="#"
-                className="text-zinc-400 hover:text-white transition-colors flex items-center justify-center"
-                aria-label="Back to home"
-              >
-                <ArrowLeft className="w-6 h-6" />
-              </a>
-              <span>{isSignUp ? 'Sign Up Account' : 'Sign In Account'}</span>
+          <div className="relative">
+            <a
+              href="#"
+              className="absolute right-full mr-3.5 top-1.5 text-zinc-400 hover:text-white transition-colors flex items-center justify-center"
+              aria-label="Back to home"
+            >
+              <ArrowLeft className="w-6 h-6" />
+            </a>
+            <h2 className="text-3xl font-bold tracking-tight">
+              {isSignUp ? 'Sign Up Account' : 'Sign In Account'}
             </h2>
             <p className="text-zinc-500 text-sm mt-2">
               {isSignUp ? 'Enter your personal data to create your account.' : 'Enter your credentials to access your account.'}
